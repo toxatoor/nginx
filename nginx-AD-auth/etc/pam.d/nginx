@@ -1,0 +1,3 @@
+auth    required     /lib/x86_64-linux-gnu/security/pam_ldap.so
+account required     /lib/x86_64-linux-gnu/security/pam_ldap.so
+
