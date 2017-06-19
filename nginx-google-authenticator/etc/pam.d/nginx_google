@@ -1,0 +1,2 @@
+auth        required pam_google_authenticator.so secret=/etc/nginx/gauth/${USER} user=nginx
+account     required pam_permit.so

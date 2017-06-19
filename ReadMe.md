@@ -18,6 +18,22 @@ nginx http-auth against Microsoft Active Directory.
 In most cases, foreign soft authenticates against AD using LDAP. So nginx got it's own auth_ldap module - but in some complicated AD schemas it doesn't work at all. 
 The key point is to use [ngx_auth_pam](https://github.com/sto/ngx_http_auth_pam_module), and set bindings to AD in pam. 
 
+## nginx-google-authenticator
+
+nginx with OTP by Google Authenticator. 
+The key point is also to use [ngx_auth_pam](https://github.com/sto/ngx_http_auth_pam_module). 
+Install Google Authenticator pam-module:
+```
+apt-get install libpam-google-authenticator
+```
+
+Create pam service config, and produce GAs files like this: 
+```
+USER=johndoe
+google-authenticator -t -l "${USER} at my.web.site" -D -f -u -w 2  -s /etc/nginx/gauth/${USER}
+chown nginx:nginx /etc/nginx/gauth/${USER}
+```
+
 ## ssl-certs
 
 A bunch of scripts to generate self-signed SSL certs, client .p12 certs, and csr's with SAN. 
