@@ -1,8 +1,6 @@
 # Nginx usecases
 
 ## http-session 
-Note, that it's possible to use self-signed client certs with a host cert, signed by any trusted CA. 
-Also note, that a file set in ssl_client_certificate may contain more several client certificates. Current client can be obtained from ngx_http_ssl_module embedded variables. 
 
 nginx/syslog-based HTTP-sniffer. Prerequisites:
  - lua-nginx-module
@@ -20,18 +18,16 @@ The key point is to use [ngx_auth_pam](https://github.com/sto/ngx_http_auth_pam_
 
 ## nginx-google-authenticator
 
-nginx with OTP by Google Authenticator. 
-The key point is also to use [ngx_auth_pam](https://github.com/sto/ngx_http_auth_pam_module). 
+nginx with OTP by Google Authenticator.
+The key point is also to use [ngx_auth_pam](https://github.com/sto/ngx_http_auth_pam_module).
 Install Google Authenticator pam-module:
 ```
 apt-get install libpam-google-authenticator
 ```
 
-Create pam service config, and produce GAs files like this: 
+Create pam service config (etc/pam.d/nginx_google), and produce GAs files like this:
 ```
-USER=johndoe
-google-authenticator -t -l "${USER} at my.web.site" -D -f -u -w 2  -s /etc/nginx/gauth/${USER}
-chown nginx:nginx /etc/nginx/gauth/${USER}
+createuser.sh johndoe
 ```
 
 ## ssl-certs
@@ -57,5 +53,5 @@ gen_csr.sh - creates CSR with SAN for trusted CA and dumps csr content in readab
 ./gen_csr.sh host.tld 
 
 ```
-SAN, for example, is required by several CA's to create a wildcard cert. Alternative names should be defined in host.tld.csr.conf among pre-defined defautls. 
+SAN, for example, is required by several CA's to create a wildcard cert. Alternative namess should be defined in host.tld.csr.conf among pre-defined defautls. 
 When CA requires csr with SAN for wildcard - in most cases you should define main CN as *.host.tld, and first alternative name set to host.tld. 
