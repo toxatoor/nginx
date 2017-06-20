@@ -33,7 +33,7 @@ tar zxf ${SRCFILE}
 cd ${SRC}
 CMD="./configure ${CONFIGURE} --add-dynamic-module=../lua-nginx-module --add-dynamic-module=../ngx_http_auth_pam_module "
 eval ${CMD}
-make | spinner && cp objs/*.so /etc/nginx/modules
+( make | spinner ) && cp objs/*.so /etc/nginx/modules
 ls -l /etc/nginx/modules/*.so
 
 popd
