@@ -61,3 +61,24 @@ When CA requires csr with SAN for wildcard - in most cases you should define mai
 An automated script to build additional dynamic modules for official nginx package. 
 The script simply build modules for exact installed nginx version and places results into default modules dir. 
 The script requires build environment to be set - including GCC, git, -devel packages for libraries, etc. 
+
+
+## lua-ffi 
+
+Example how to use luajit-ffi with nginx, based in libqrencode. 
+First, calling shared library functions requires, that this particular library exists in nginx's process memory space. This could be done with several ways: 
+
+ - using native ffi.load() call; 
+ - linking library into nginx binary upon building (either statically or dynamically);
+ - using LD_PRELOAD env variable; 
+
+As a most complicated way, in this example ffi.load() is used, loading symbols into separate namespace "libqrencode". 
+Then, one have to define all necessary symbols from a libqrencode with ffi.cdef() exactly as they're defined in qrencode.h. 
+The rest is quite obvious except the point that *encode functions returns a pointer to array of chars with meaningful lowest bit - so we have to process this array in lua to draw an "image". 
+
+If everything is ok, you should see something like this: 
+![sample qr-code](https://github.com/toxatoor/nginx/blob/master/lua-ffi/lua-qrencode.png)
+
+Note, that you're playing in deep water, and there can be leaks and other issues, causing nginx worker to segfault. 
+Also note, that init_by_lua_* statements executed upon start master/worker process, and content_by_lua_* - upon accessing to the location, which causes re-reading code when content_by_lua_file is used. So you can run into state when different nginx workers uses different code; therefore in thes example *_by_lua_block is used.  
+
