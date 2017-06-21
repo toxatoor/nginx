@@ -77,6 +77,7 @@ Then, one have to define all necessary symbols from a libqrencode with ffi.cdef(
 The rest is quite obvious except the point that *encode functions returns a pointer to array of chars with meaningful lowest bit - so we have to process this array in lua to draw an "image". 
 
 If everything is ok, you should see something like this: 
+
 ![sample qr-code](https://github.com/toxatoor/nginx/blob/master/lua-ffi/lua-qrencode.png)
 
 Note, that you're playing in deep water, and there can be leaks and other issues, causing nginx worker to segfault. 
