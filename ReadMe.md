@@ -65,7 +65,7 @@ The script requires build environment to be set - including GCC, git, -devel pac
 
 ## lua-ffi 
 
-Example how to use luajit-ffi with nginx, based in libqrencode. 
+Example how to use luajit-ffi with nginx, based on libqrencode. 
 First, calling shared library functions requires, that this particular library exists in nginx's process memory space. This could be done with several ways: 
 
  - using native ffi.load() call; 
@@ -73,6 +73,7 @@ First, calling shared library functions requires, that this particular library e
  - using LD_PRELOAD env variable; 
 
 As a most complicated way, in this example ffi.load() is used, loading symbols into separate namespace "libqrencode". 
+
 Then, one have to define all necessary symbols from a libqrencode with ffi.cdef() exactly as they're defined in qrencode.h. 
 The rest is quite obvious except the point that *encode functions returns a pointer to array of chars with meaningful lowest bit - so we have to process this array in lua to draw an "image". 
 
