@@ -46,7 +46,7 @@ gen_client.sh - creates client .p12 cert to use with certificate authentication.
 
 ```
 Note, that it's possible to use self-signed client certs with a host cert, signed by any trusted CA. 
-Also note, that a file set in ssl_client_certificate may contain more several client certificates. Current client can be obtained from ngx_http_ssl_module embedded variables. 
+Also note, that a file set in ssl_client_certificate may contain several client certificates. Current client can be obtained from ngx_http_ssl_module embedded variables. 
 
 gen_csr.sh - creates CSR with SAN for trusted CA and dumps csr content in readable form. 
 ```
