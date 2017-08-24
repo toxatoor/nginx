@@ -1,0 +1,8 @@
+[Unit]
+Description= Rebuild repo
+
+[Service]
+Type=oneshot
+User=nginx
+Group=nginx
+ExecStart=/opt/bin/rebuild_repo.sh

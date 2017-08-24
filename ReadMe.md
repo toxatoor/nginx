@@ -62,6 +62,22 @@ An automated script to build additional dynamic modules for official nginx packa
 The script simply build modules for exact installed nginx version and places results into default modules dir. 
 The script requires build environment to be set - including GCC, git, -devel packages for libraries, etc. 
 
+## nginx-yum-repo
+
+Minimalistic setup to serve yum-repository with nginx. 
+Requirements: 
+
+  - systemd 
+  - nginx 
+  - createrepo (or, for best performance - C implementation [createrepo_c](https://github.com/rpm-software-management/createrepo_c)
+
+RPM packages are pushed into repository via WebDAV, and, after all packages uploaded, one have to trigger rebuild by http hook. 
+```
+curl -T package.rpm http://yum.repo.tld/repo/name/package.rpm 
+curl http://yum.repo.tld/repoflag/name
+```
+
+In general, it's possible to remove hook, and rebuild repodata just on package upload - but, in busy CI environments it will be rebuilding too often. 
 
 ## lua-ffi 
 

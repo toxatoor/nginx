@@ -1,0 +1,8 @@
+[Unit]
+Description= Rebuild repo
+
+[Path]
+PathModified=/srv/data/repoflags
+
+[Install]
+WantedBy=multi-user.target
