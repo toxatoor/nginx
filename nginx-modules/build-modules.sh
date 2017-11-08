@@ -14,6 +14,14 @@ VER=$(nginx -V 2>&1 )
 TMP=$(mktemp -d)
 HOMEDIR=$(pwd)
 
+# PSOL
+
+if [ "$(uname -m)" = x86_64 ]; then
+  BIT_SIZE_NAME=x64
+else
+  BIT_SIZE_NAME=ia32
+fi
+
 VERSION=$(echo "${VER}" | grep "^nginx version: " | awk -F 'nginx version: nginx/' '{print $2}')
 CONFIGURE=$(echo "${VER}" | grep "^configure arguments: " | awk -F 'configure arguments: ' '{print $2}' | sed -r '
   s/([^\ ]*=dynamic )/ /g;
@@ -32,12 +40,22 @@ git clone https://github.com/google/ngx_brotli.git ${TMP}/ngx_brotli
 cd ${TMP}/ngx_brotli && git submodule update --init
 cd ${HOMEDIR}
 
+git clone -b latest-stable https://github.com/pagespeed/ngx_pagespeed.git ${TMP}/ngx_pagespeed
+
+pushd ${TMP}/ngx_pagespeed
+_psol=$( cat PSOL_BINARY_URL )
+PSOL_URL=$( eval "echo ${_psol}" )
+curl -# "${PSOL_URL}" > psol.tar.gz
+tar zxf psol.tar.gz
+popd
+
 pushd ${TMP}
 
 tar zxf ${SRCFILE}
 cd ${SRC}
-CMD="./configure ${CONFIGURE} --add-dynamic-module=../lua-nginx-module --add-dynamic-module=../ngx_http_auth_pam_module --add-dynamic-module=../ngx_brotli "
+CMD="./configure ${CONFIGURE} --add-dynamic-module=../lua-nginx-module --add-dynamic-module=../ngx_http_auth_pam_module --add-dynamic-module=../ngx_brotli --add-dynamic-module=../ngx_pagespeed "
 eval ${CMD}
+
 ( make | spinner ) && cp objs/*.so /etc/nginx/modules
 ls -l /etc/nginx/modules/*.so
 

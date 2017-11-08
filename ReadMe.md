@@ -62,6 +62,13 @@ An automated script to build additional dynamic modules for official nginx packa
 The script simply build modules for exact installed nginx version and places results into default modules dir. 
 The script requires build environment to be set - including GCC, git, -devel packages for libraries, etc. 
 
+Currently builds modules: 
+
+  - Nginx auth_pam module 
+  - Nginx brotli module
+  - Nginx Lua module
+  - Nginx pagespeed module
+
 ## nginx-yum-repo
 
 Minimalistic setup to serve yum-repository with nginx. 
