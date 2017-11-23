@@ -68,6 +68,7 @@ Currently builds modules:
   - Nginx brotli module
   - Nginx Lua module
   - Nginx pagespeed module
+  - Nginx virtual host traffic status module
 
 ## nginx-yum-repo
 
