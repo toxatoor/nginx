@@ -35,6 +35,7 @@ curl -# http://nginx.org/download/${SRCFILE} > ${TMP}/${SRCFILE}
 
 git clone https://github.com/openresty/lua-nginx-module.git  ${TMP}/lua-nginx-module
 git clone https://github.com/sto/ngx_http_auth_pam_module.git ${TMP}/ngx_http_auth_pam_module
+git clone https://github.com/vozlt/nginx-module-vts.git ${TMP}/nginx-module-vts
 
 git clone https://github.com/google/ngx_brotli.git ${TMP}/ngx_brotli
 cd ${TMP}/ngx_brotli && git submodule update --init
@@ -53,7 +54,7 @@ pushd ${TMP}
 
 tar zxf ${SRCFILE}
 cd ${SRC}
-CMD="./configure ${CONFIGURE} --add-dynamic-module=../lua-nginx-module --add-dynamic-module=../ngx_http_auth_pam_module --add-dynamic-module=../ngx_brotli --add-dynamic-module=../ngx_pagespeed "
+CMD="./configure ${CONFIGURE} --add-dynamic-module=../lua-nginx-module --add-dynamic-module=../ngx_http_auth_pam_module --add-dynamic-module=../ngx_brotli --add-dynamic-module=../ngx_pagespeed --add-dynamic-module=../nginx-module-vts "
 eval ${CMD}
 
 ( make | spinner ) && cp objs/*.so /etc/nginx/modules
