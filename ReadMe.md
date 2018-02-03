@@ -108,3 +108,22 @@ If everything is ok, you should see something like this:
 Note, that you're playing in deep water, and there can be leaks and other issues, causing nginx worker to segfault. 
 Also note, that init_by_lua_* statements executed upon start master/worker process, and content_by_lua_* - upon accessing to the location, which causes re-reading code when content_by_lua_file is used. So you can run into state when different nginx workers uses different code; therefore in thes example *_by_lua_block is used.  
 
+## nginx-stream-ssh 
+
+Wrapping ssh connection into SSL using nginx-stream module. 
+The configuration is quite simple: 
+ 
+  - bind sshd to 127.0.0.1:8022 using ListenAddress in sshd_config; 
+  - add stream section into nginx.conf; 
+  - add Host configuration into ssh_config (or ~/.ssh/config);
+
+This could be used for extra: 
+
+### security
+
+  - most scanning bots expects ssh handshake on 22/tcp, so they will be confused;
+  - adding a client certificate authentication could add a sort of second factor; 
+
+### flexibility
+
+  - as nginx read SSL session date before proxing, it's possible to proxy a single entry point ssh connections to different upstream by SNI, client certificate DN, issue/expiration date, serial etc using variable mapping. Adding lua scripting allows to use extremaly flexible dynamic mappings. 
