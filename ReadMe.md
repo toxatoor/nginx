@@ -119,11 +119,11 @@ The configuration is quite simple:
 
 This could be used for extra: 
 
-### security
+Security
 
   - most scanning bots expects ssh handshake on 22/tcp, so they will be confused;
   - adding a client certificate authentication could add a sort of second factor; 
 
-### flexibility
+Flexibility
 
   - as nginx read SSL session date before proxing, it's possible to proxy a single entry point ssh connections to different upstream by SNI, client certificate DN, issue/expiration date, serial etc using variable mapping. Adding lua scripting allows to use extremaly flexible dynamic mappings. 
