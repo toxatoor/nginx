@@ -1,5 +1,5 @@
 Host *
- ProxyCommand openssl s_client -quiet -connect %h:8022 2>/dev/null
+ ProxyCommand openssl s_client -quiet -connect %h:22 2>/dev/null
 
 # Host *
-#  ProxyCommand openssl s_client -quiet -connect %h:8022 -cert client.cert -key client.key 2>/dev/null
+#  ProxyCommand openssl s_client -quiet -connect %h:22 -cert client.cert -key client.key 2>/dev/null
