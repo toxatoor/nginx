@@ -108,6 +108,11 @@ If everything is ok, you should see something like this:
 Note, that you're playing in deep water, and there can be leaks and other issues, causing nginx worker to segfault. 
 Also note, that init_by_lua_* statements executed upon start master/worker process, and content_by_lua_* - upon accessing to the location, which causes re-reading code when content_by_lua_file is used. So you can run into state when different nginx workers uses different code; therefore in thes example *_by_lua_block is used.  
 
+## nginx-extended-limit_rate 
+
+Extending limit_rate to any time window. 
+
+
 ## nginx-stream-ssh 
 
 Wrapping ssh connection into SSL using nginx-stream module. 
