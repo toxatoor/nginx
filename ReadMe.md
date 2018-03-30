@@ -56,6 +56,13 @@ gen_csr.sh - creates CSR with SAN for trusted CA and dumps csr content in readab
 SAN, for example, is required by several CA's to create a wildcard cert. Alternative namess should be defined in host.tld.csr.conf among pre-defined defautls. 
 When CA requires csr with SAN for wildcard - in most cases you should define main CN as *.host.tld, and first alternative name set to host.tld. 
 
+check_expire.sh - checks a cert's expiration date on a remote host. 
+```
+$ ./check_expire.sh google.com
+Wed May 30 18:50:00 UTC 2018
+$
+```
+
 ## nginx-modules 
 
 An automated script to build additional dynamic modules for official nginx package. 
