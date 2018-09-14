@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Build environment
+# 
+# Debian 9: apt-get install curl make gcc libdpkg-perl luajit libluajit-5.1-dev libpcre3-dev libssl-dev libz-dev
+# 
+
+
 function spinner() {
 i=1
 sp="/-\|"
