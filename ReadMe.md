@@ -77,6 +77,10 @@ Currently builds modules:
   - Nginx pagespeed module
   - Nginx virtual host traffic status module
 
+Also supports (disabled by default): 
+  - Nginx Development Kit module
+  - Nginx encrypted sessions module
+
 ## nginx-yum-repo
 
 Minimalistic setup to serve yum-repository with nginx. 
