@@ -44,6 +44,7 @@ git clone https://github.com/sto/ngx_http_auth_pam_module.git 		  ${TMP}/ngx_htt
 git clone https://github.com/vozlt/nginx-module-vts.git 		  ${TMP}/nginx-module-vts
 git clone https://github.com/simplresty/ngx_devel_kit.git 		  ${TMP}/ngx_devel_kit
 git clone https://github.com/openresty/encrypted-session-nginx-module.git ${TMP}/encrypted-session-nginx-module
+git clone https://github.com/openresty/set-misc-nginx-module.git          ${TMP}/set-misc-nginx-module
 
 git clone https://github.com/google/ngx_brotli.git ${TMP}/ngx_brotli
 cd ${TMP}/ngx_brotli && git submodule update --init
@@ -67,6 +68,7 @@ cd ${SRC}
 # CMD="./configure ${CONFIGURE} \
 # 	--add-dynamic-module=../ngx_devel_kit \
 # 	--add-dynamic-module=../encrypted-session-nginx-module \
+# 	--add-dynamic-module=../set-misc-nginx-module \
 # 	--add-dynamic-module=../lua-nginx-module \
 # 	--add-dynamic-module=../ngx_http_auth_pam_module \
 # 	--add-dynamic-module=../ngx_brotli \

@@ -80,6 +80,7 @@ Currently builds modules:
 Also supports (disabled by default): 
   - Nginx Development Kit module
   - Nginx encrypted sessions module
+  - Nginx set misc module
 
 ## nginx-yum-repo
 
