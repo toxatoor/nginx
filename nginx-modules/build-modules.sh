@@ -13,14 +13,14 @@ echo -n ' '
 while read line
 do
   printf "\b${sp:i++%${#sp}:1}"
-  done
+done
+echo
 }
 
 VER=$(nginx -V 2>&1 )
 TMP=$(mktemp -d)
 HOMEDIR=$(pwd)
 
-# PSOL
 
 if [ "$(uname -m)" = x86_64 ]; then
   BIT_SIZE_NAME=x64
@@ -37,58 +37,82 @@ CONFIGURE=$(echo "${VER}" | grep "^configure arguments: " | awk -F 'configure ar
 SRC="nginx-${VERSION}"
 SRCFILE="nginx-${VERSION}.tar.gz"
 
-curl -# http://nginx.org/download/${SRCFILE} > ${TMP}/${SRCFILE}
+MODULES_PATH="${HOMEDIR}/nginx-${VERSION}-modules"
+mkdir -p ${MODULES_PATH}
 
-git clone https://github.com/openresty/lua-nginx-module.git  		  ${TMP}/lua-nginx-module
-git clone https://github.com/sto/ngx_http_auth_pam_module.git 		  ${TMP}/ngx_http_auth_pam_module
-git clone https://github.com/vozlt/nginx-module-vts.git 		  ${TMP}/nginx-module-vts
-git clone https://github.com/simplresty/ngx_devel_kit.git 		  ${TMP}/ngx_devel_kit
-git clone https://github.com/openresty/encrypted-session-nginx-module.git ${TMP}/encrypted-session-nginx-module
-git clone https://github.com/openresty/set-misc-nginx-module.git          ${TMP}/set-misc-nginx-module
+pushd ${TMP}
 
-git clone https://github.com/google/ngx_brotli.git ${TMP}/ngx_brotli
-cd ${TMP}/ngx_brotli && git submodule update --init
-cd ${HOMEDIR}
+curl -# http://nginx.org/download/${SRCFILE} > ${SRCFILE}
 
-git clone -b latest-stable https://github.com/pagespeed/ngx_pagespeed.git ${TMP}/ngx_pagespeed
+### Clone repos 
 
-pushd ${TMP}/ngx_pagespeed
-git checkout tags/latest-stable
+git clone https://github.com/openresty/lua-nginx-module.git      lua-nginx-module
+git clone https://github.com/vozlt/nginx-module-vts.git          nginx-module-vts
+git clone https://github.com/sto/ngx_http_auth_pam_module.git    ngx_http_auth_pam_module
+git clone https://github.com/vkholodkov/nginx-eval-module.git    nginx-eval-module 
+git clone https://github.com/aperezdc/ngx-fancyindex.git         ngx-fancyindex
+git clone https://github.com/arut/nginx-rtmp-module.git          nginx-rtmp-module
+git clone https://github.com/vozlt/nginx-module-url.git          nginx-module-url
+
+git clone https://github.com/openresty/headers-more-nginx-module.git       headers-more-nginx-module
+git clone https://github.com/openresty/encrypted-session-nginx-module.git  encrypted-session-nginx-module
+
+
+### Openresty's cross-dependencies
+git clone https://github.com/openresty/set-misc-nginx-module.git set-misc-nginx-module
+git clone https://github.com/vision5/ngx_devel_kit.git           ngx_devel_kit
+
+
+### Modules with extra configuration 
+git clone https://github.com/pagespeed/ngx_pagespeed.git         ngx_pagespeed
+git clone https://github.com/google/ngx_brotli.git               ngx_brotli
+
+
+### Prepare repos 
+
+( cd lua-nginx-module ; git checkout tags/v0.10.15 ; cd .. ) 
+( cd ngx_pagespeed ; git checkout tags/latest-stable ; cd .. ) 
+# ( cd set-misc-nginx-module ; git checkout tags/v0.32 ; cd .. ) 
+
+### Prepare dependencies
+
+( cd ngx_brotli ; git submodule update --init ; cd .. )
+
+( cd ngx_pagespeed 
+
 _psol=$( cat PSOL_BINARY_URL )
 PSOL_URL=$( eval "echo ${_psol}" )
 curl -# "${PSOL_URL}" > psol.tar.gz
 tar zxf psol.tar.gz
-popd
 
-pushd ${TMP}
+cd .. ) 
 
 tar zxf ${SRCFILE}
 cd ${SRC}
-
-# CMD="./configure ${CONFIGURE} \
-# 	--add-dynamic-module=../ngx_devel_kit \
-# 	--add-dynamic-module=../encrypted-session-nginx-module \
-# 	--add-dynamic-module=../set-misc-nginx-module \
-# 	--add-dynamic-module=../lua-nginx-module \
-# 	--add-dynamic-module=../ngx_http_auth_pam_module \
-# 	--add-dynamic-module=../ngx_brotli \
-# 	--add-dynamic-module=../ngx_pagespeed \
-# 	--add-dynamic-module=../nginx-module-vts \
-# 	"
-
 CMD="./configure ${CONFIGURE} \
 	--add-dynamic-module=../lua-nginx-module \
+	--add-dynamic-module=../nginx-module-vts \
 	--add-dynamic-module=../ngx_http_auth_pam_module \
 	--add-dynamic-module=../ngx_brotli \
 	--add-dynamic-module=../ngx_pagespeed \
-	--add-dynamic-module=../nginx-module-vts \
+	--add-dynamic-module=../ngx_devel_kit \
+	--add-dynamic-module=../set-misc-nginx-module \
+	--add-dynamic-module=../encrypted-session-nginx-module \
+	--add-dynamic-module=../nginx-eval-module \
+	--add-dynamic-module=../ngx-fancyindex \
+	--add-dynamic-module=../nginx-rtmp-module \
+	--add-dynamic-module=../nginx-module-url \
+	--add-dynamic-module=../headers-more-nginx-module \
 	"
 eval ${CMD}
 
-( make | spinner ) && cp objs/*.so /etc/nginx/modules
-ls -l /etc/nginx/modules/*.so
+( make | spinner ) && cp objs/*.so ${MODULES_PATH}
+#( make | spinner ) && ls -l objs/*.so
 
 popd
 
+ls -l ${MODULES_PATH}/
+
+# echo ${TMP}
 rm -rf ${TMP}
 
