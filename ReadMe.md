@@ -76,11 +76,13 @@ Currently builds modules:
   - Nginx Lua module
   - Nginx pagespeed module
   - Nginx virtual host traffic status module
-
-Also supports (disabled by default): 
   - Nginx Development Kit module
   - Nginx encrypted sessions module
   - Nginx set misc module
+  - Nginx memcache eval module
+  - Nginx fancy index module
+  - Nginx headers_more module
+  - Nginx rtmp module
 
 ## nginx-yum-repo
 
