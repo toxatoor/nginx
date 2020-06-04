@@ -54,6 +54,7 @@ git clone https://github.com/aperezdc/ngx-fancyindex.git         ngx-fancyindex
 git clone https://github.com/arut/nginx-rtmp-module.git          nginx-rtmp-module
 git clone https://github.com/vozlt/nginx-module-url.git          nginx-module-url
 
+git clone https://github.com/openresty/lua-upstream-nginx-module.git       lua-upstream-nginx-module
 git clone https://github.com/openresty/headers-more-nginx-module.git       headers-more-nginx-module
 git clone https://github.com/openresty/encrypted-session-nginx-module.git  encrypted-session-nginx-module
 
@@ -103,6 +104,7 @@ CMD="./configure ${CONFIGURE} \
 	--add-dynamic-module=../nginx-rtmp-module \
 	--add-dynamic-module=../nginx-module-url \
 	--add-dynamic-module=../headers-more-nginx-module \
+	--add-dynamic-module=../lua-upstream-nginx-module \
 	"
 eval ${CMD}
 

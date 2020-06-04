@@ -66,7 +66,7 @@ $
 ## nginx-modules 
 
 An automated script to build additional dynamic modules for official nginx package. 
-The script simply build modules for exact installed nginx version and places results into default modules dir. 
+The script simply build modules for exact installed nginx version and places results into current directory. 
 The script requires build environment to be set - including GCC, git, -devel packages for libraries, etc. 
 
 Currently builds modules: 
@@ -74,6 +74,7 @@ Currently builds modules:
   - Nginx auth_pam module 
   - Nginx brotli module
   - Nginx Lua module
+  - Nginx Lua upstream module
   - Nginx pagespeed module
   - Nginx virtual host traffic status module
   - Nginx Development Kit module
