@@ -131,6 +131,10 @@ Also note, that init_by_lua_* statements executed upon start master/worker proce
 
 Extending limit_rate to any time window. 
 
+## nginx-autoban
+
+Lua-based auto blocker. Bans clients exceesing rate limit for arbitrary set time. Supports minimalistic metrics export, could be extended by adding unban option.
+Might also be extended to ban clients on any attribute available within HTTP session, e.g: user-agent, args, headers, cookies etc. 
 
 ## nginx-stream-ssh 
 
