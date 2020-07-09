@@ -10,6 +10,10 @@ nginx/syslog-based HTTP-sniffer. Prerequisites:
 
 Simple lua-based extended status, logging errors by http response code - to use with zabbix, etc. Requires lua-nginx-module
 
+## metrics-aggregation
+
+Aggregate prometheus metrics from different exporters in a single endpoint. 
+
 ## nginx-AD-auth 
 
 nginx http-auth against Microsoft Active Directory. 
