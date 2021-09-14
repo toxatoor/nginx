@@ -1,0 +1,12 @@
+[Unit]
+Description=socat-based cmd api
+After=network.target
+
+[Service]
+User=nobody
+Group=nobody
+ExecStart=/usr/bin/socat UDP-LISTEN:50333,fork,bind=127.0.0.1 EXEC:/opt/bin/shell-webhook
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

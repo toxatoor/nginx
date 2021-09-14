@@ -1,0 +1,23 @@
+#!/bin/bash
+
+LOG=/var/log/shell-webhook.log
+
+declare -a DATA
+read -a DATA 
+cmd=${DATA[4]}
+
+case ${cmd} in
+
+  reboot)
+    echo "Executing reboot" >> ${LOG}
+    ;; 
+
+  update)
+    echo "Executing update" >> ${LOG}
+    ;;
+
+  *)
+    echo "Unknown command" >>  ${LOG}
+    ;;
+
+esac

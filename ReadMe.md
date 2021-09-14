@@ -155,3 +155,7 @@ Security
 Flexibility
 
   - as nginx read SSL session date before proxing, it's possible to proxy a single entry point ssh connections to different upstream by SNI, client certificate DN, issue/expiration date, serial etc using variable mapping. Adding lua scripting allows to use extremaly flexible dynamic mappings. 
+
+## nginx-shell-webhook
+
+Minimalistic approach to create shell-based webhooks accessable via nginx
