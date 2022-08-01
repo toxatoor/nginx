@@ -78,6 +78,7 @@ Currently builds modules:
   - Nginx auth_pam module 
   - Nginx brotli module
   - Nginx Lua module
+  - Nginx Lua stream module
   - Nginx Lua upstream module
   - Nginx pagespeed module
   - Nginx virtual host traffic status module
@@ -88,6 +89,8 @@ Currently builds modules:
   - Nginx fancy index module
   - Nginx headers_more module
   - Nginx rtmp module
+  - Nginx substitutions filter module
+  - Nginx VOD module
 
 ## nginx-yum-repo
 

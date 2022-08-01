@@ -46,7 +46,6 @@ curl -# http://nginx.org/download/${SRCFILE} > ${SRCFILE}
 
 ### Clone repos 
 
-git clone https://github.com/openresty/lua-nginx-module.git      lua-nginx-module
 git clone https://github.com/vozlt/nginx-module-vts.git          nginx-module-vts
 git clone https://github.com/sto/ngx_http_auth_pam_module.git    ngx_http_auth_pam_module
 git clone https://github.com/vkholodkov/nginx-eval-module.git    nginx-eval-module 
@@ -55,7 +54,9 @@ git clone https://github.com/arut/nginx-rtmp-module.git          nginx-rtmp-modu
 git clone https://github.com/vozlt/nginx-module-url.git          nginx-module-url
 git clone https://github.com/kaltura/nginx-vod-module.git        nginx-vod-module
 
+git clone https://github.com/openresty/lua-nginx-module.git                lua-nginx-module
 git clone https://github.com/openresty/lua-upstream-nginx-module.git       lua-upstream-nginx-module
+git clone https://github.com/openresty/stream-lua-nginx-module.git         stream-lua-nginx-module
 git clone https://github.com/openresty/headers-more-nginx-module.git       headers-more-nginx-module
 git clone https://github.com/openresty/encrypted-session-nginx-module.git  encrypted-session-nginx-module
 
@@ -74,9 +75,10 @@ git clone https://github.com/google/ngx_brotli.git               ngx_brotli
 
 ### Prepare repos 
 
-( cd lua-nginx-module ; git checkout tags/v0.10.15 ; cd .. ) 
-( cd ngx_pagespeed ; git checkout tags/latest-stable ; cd .. ) 
-# ( cd set-misc-nginx-module ; git checkout tags/v0.32 ; cd .. ) 
+( cd lua-nginx-module ; git checkout tags/v0.10.15 ; cd .. )
+( cd stream-lua-nginx-module ; git checkout tags/v0.0.7 ; cd .. )
+( cd ngx_pagespeed ; git checkout tags/latest-stable ; cd .. )
+# ( cd set-misc-nginx-module ; git checkout tags/v0.32 ; cd .. )
 
 ### Prepare dependencies
 
@@ -94,23 +96,25 @@ cd .. )
 tar zxf ${SRCFILE}
 cd ${SRC}
 CMD="./configure ${CONFIGURE} \
-	--add-dynamic-module=../lua-nginx-module \
-	--add-dynamic-module=../nginx-module-vts \
-	--add-dynamic-module=../ngx_http_auth_pam_module \
-	--add-dynamic-module=../ngx_brotli \
-	--add-dynamic-module=../ngx_pagespeed \
-	--add-dynamic-module=../ngx_devel_kit \
-	--add-dynamic-module=../set-misc-nginx-module \
-	--add-dynamic-module=../encrypted-session-nginx-module \
-	--add-dynamic-module=../nginx-eval-module \
-	--add-dynamic-module=../ngx-fancyindex \
-	--add-dynamic-module=../nginx-rtmp-module \
-	--add-dynamic-module=../nginx-module-url \
-	--add-dynamic-module=../headers-more-nginx-module \
-	--add-dynamic-module=../lua-upstream-nginx-module \
+        --add-dynamic-module=../lua-nginx-module \
+        --add-dynamic-module=../lua-upstream-nginx-module \
+        --add-dynamic-module=../stream-lua-nginx-module \
+        --add-dynamic-module=../nginx-module-vts \
+        --add-dynamic-module=../ngx_http_auth_pam_module \
+        --add-dynamic-module=../ngx_brotli \
+        --add-dynamic-module=../ngx_pagespeed \
+        --add-dynamic-module=../ngx_devel_kit \
+        --add-dynamic-module=../set-misc-nginx-module \
+        --add-dynamic-module=../encrypted-session-nginx-module \
+        --add-dynamic-module=../nginx-eval-module \
+        --add-dynamic-module=../ngx-fancyindex \
+        --add-dynamic-module=../nginx-rtmp-module \
+        --add-dynamic-module=../nginx-module-url \
+        --add-dynamic-module=../headers-more-nginx-module \
         --add-dynamic-module=../nginx-vod-module \
         --add-dynamic-module=../ngx_http_substitutions_filter_module \
 	"
+
 eval ${CMD}
 
 ( make | spinner ) && cp objs/*.so ${MODULES_PATH}
