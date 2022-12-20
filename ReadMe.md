@@ -33,6 +33,14 @@ Create pam service config (etc/pam.d/nginx_google), and produce GAs files like t
 ```
 createuser.sh johndoe
 ```
+## nginx-dumb-metrics
+
+Minimalistic prometheus metrics exporter build on top on vanila nginx with no external modules. Sample output: 
+```
+nginx_dumb_requests{metric="code_200"} 14
+nginx_dumb_requests{metric="code_404"} 1
+nginx_dumb_requests{metric="up"} 1
+```
 
 ## ssl-certs
 
