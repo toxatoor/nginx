@@ -35,12 +35,14 @@ createuser.sh johndoe
 ```
 ## nginx-dumb-metrics
 
-Minimalistic prometheus metrics exporter build on top on vanila nginx with no external modules. Sample output: 
+Minimalistic prometheus metrics exporter build on top on vanilla nginx with no external modules. Sample output: 
 ```
 nginx_dumb_requests{metric="code_200"} 14
 nginx_dumb_requests{metric="code_404"} 1
 nginx_dumb_requests{metric="up"} 1
 ```
+
+Note: file `up` is required to satisfy xml parser. 
 
 ## ssl-certs
 
