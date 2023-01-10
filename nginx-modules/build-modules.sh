@@ -56,7 +56,7 @@ git clone https://github.com/kaltura/nginx-vod-module.git        nginx-vod-modul
 
 git clone https://github.com/openresty/lua-nginx-module.git                lua-nginx-module
 git clone https://github.com/openresty/lua-upstream-nginx-module.git       lua-upstream-nginx-module
-# git clone https://github.com/openresty/stream-lua-nginx-module.git         stream-lua-nginx-module
+git clone https://github.com/openresty/stream-lua-nginx-module.git         stream-lua-nginx-module
 git clone https://github.com/openresty/headers-more-nginx-module.git       headers-more-nginx-module
 git clone https://github.com/openresty/encrypted-session-nginx-module.git  encrypted-session-nginx-module
 
@@ -76,7 +76,7 @@ git clone https://github.com/google/ngx_brotli.git               ngx_brotli
 ### Prepare repos 
 
 ( cd lua-nginx-module ; git checkout tags/v0.10.15 ; cd .. )
-# ( cd stream-lua-nginx-module ; git checkout tags/v0.0.7 ; cd .. )
+( cd stream-lua-nginx-module ; git checkout tags/v0.0.7 ; cd .. )
 ( cd ngx_pagespeed ; git checkout tags/latest-stable ; cd .. )
 # ( cd set-misc-nginx-module ; git checkout tags/v0.32 ; cd .. )
 
@@ -112,9 +112,9 @@ CMD="./configure ${CONFIGURE} \
         --add-dynamic-module=../headers-more-nginx-module \
         --add-dynamic-module=../nginx-vod-module \
         --add-dynamic-module=../ngx_http_substitutions_filter_module \
+        --add-dynamic-module=../stream-lua-nginx-module \
 	"
 
-#         --add-dynamic-module=../stream-lua-nginx-module \
 
 eval ${CMD}
 

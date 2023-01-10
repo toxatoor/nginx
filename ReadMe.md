@@ -88,7 +88,7 @@ Currently builds modules:
   - Nginx auth_pam module 
   - Nginx brotli module
   - Nginx Lua module
-  - Nginx Lua stream module
+  - Nginx Lua stream module (Note: working version of this module does not support dynamic builds) 
   - Nginx Lua upstream module
   - Nginx pagespeed module
   - Nginx virtual host traffic status module
